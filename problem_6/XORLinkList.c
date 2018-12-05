@@ -1,0 +1,90 @@
+#include "XORLinkList.h"
+
+unsigned int xorll_add(List * const list, Node * const node)
+{
+    Node *prev;
+
+    if(node == NULL){
+        return list->length;
+    }
+
+    if(list->head == NULL) {
+        node->both = 0L;
+        list->head = node;
+        list->tail = node;
+        list->length += 1;
+        return list->length;
+    }
+
+    if(list->tail == NULL) {
+        list->tail = list->head;
+    }
+    
+    list->tail->both = list->tail->both ^ (unsigned long)node;
+    prev = list->tail;
+    list->tail = node;
+    list->tail->both = (unsigned long)prev;
+    
+    list->length += 1;
+    return list->length;
+}
+
+unsigned int xorll_insert(List * const list, Node * const node, unsigned int index)
+{
+    return 0;
+}
+
+unsigned int xorll_remove(List * const list, unsigned int index)
+{
+    return 0;
+}
+
+Node* xorll_get(List * const list, unsigned int index)
+{
+    Node *prev = 0L,
+        *cur = list->head,
+        *next = list->head;
+    unsigned int count = 0;
+    
+    if(index >= list->length) return NULL;
+
+    while(cur != 0L) {
+        if(count == index) return cur;
+        count++;
+        if(cur->both != 0L){
+            next = (Node*)((unsigned long)prev ^ cur->both);
+            prev = cur;
+            cur = next;
+        }else{
+            break;
+        }
+    }
+    return NULL;
+}
+
+void xorll_printNode(const Node * const node)
+{
+    if(node == NULL){
+        printf("Invalid node.\n");
+        return;
+    }
+    printf("%s = %p, both = 0x%lx\n", node->name, node, node->both);
+}
+
+void xorll_printList(const List * const list)
+{
+    Node *prev = 0L,
+        *cur = list->head,
+        *next = list->head;
+    
+    while(cur != 0L) {
+        xorll_printNode(cur);
+        if(cur->both != 0L){
+            next = (Node*)((unsigned long)prev ^ cur->both);
+            prev = cur;
+            cur = next;
+        }else{
+            break;
+        }
+    }
+}
