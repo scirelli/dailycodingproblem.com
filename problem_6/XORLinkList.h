@@ -16,6 +16,7 @@ typedef struct List{
 } List;
 
 unsigned int xorll_add(List * const list, Node * const node);
+unsigned int xorll_insertHead(List * const list, Node * const node);
 unsigned int xorll_insert(List * const list, Node * const node, unsigned int index);
 unsigned int xorll_remove(List * const list, unsigned int index);
 Node* xorll_get(List * const list, unsigned int index);

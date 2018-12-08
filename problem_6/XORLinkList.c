@@ -29,8 +29,71 @@ unsigned int xorll_add(List * const list, Node * const node)
     return list->length;
 }
 
+unsigned int xorll_insertHead(List * const list, Node * const node)
+{
+    Node *cur = list->head;
+
+    cur->both = cur->both ^ (unsigned long)node;
+    node->both = (unsigned long)cur;
+    
+    list->head = node;
+
+    return ++list->length;
+}
+
+/*
+    A <--> B <--> C <--> D
+    ^      ^             ^
+   head    |            tail
+           | 
+            -- B' insert
+
+Insert at position 1 results in
+
+    A <--> B' <--> B <--> C <--> D
+    ^                            ^
+   head                         tail
+ */
 unsigned int xorll_insert(List * const list, Node * const node, unsigned int index)
 {
+    Node *prev = 0L,
+        *cur = list->head,
+        *next = list->head;
+    unsigned int position = 0;
+    
+    if(index >= list->length) {
+        return xorll_add(list, node);
+    }
+    
+    if(index == 0) {
+        return xorll_insertHead(list, node);
+    }
+
+    while(cur != 0L) {
+        if(position == index){
+            if(prev != 0L){
+                prev->both = (unsigned long)cur ^ prev->both ^ (unsigned long)node;
+            }
+           
+            cur->both = (unsigned long)prev ^ cur->both ^ (unsigned long)node;
+            node->both = (unsigned long)prev ^ (unsigned long)cur;
+            
+            if(index == 0) {
+                list->head = node;
+            }
+
+            return ++list->length;
+        }
+
+        if(cur->both != 0L){
+            next = (Node*)((unsigned long)prev ^ cur->both);
+            prev = cur;
+            cur = next;
+            position++;
+        }else{
+            break;
+        }
+    }
     return 0;
 }
 

@@ -4,12 +4,15 @@
 
 int main(int argc, char *argv[]) {
     List list;
-    Node a, b, c, d;
+    Node a = {.name = "a", .both=0},
+         b = {.name = "b", .both=0},
+         c = {.name = "c", .both=0},
+         d = {.name = "d", .both=0},
+         e = {.name = "e", .both=0},
+         bp = {.name = "b'", .both=0},
+         dp = {.name = "d'", .both=0},
+         h  = {.name = "h", .both=0};
    
-    a.name = "a";
-    b.name = "b";
-    c.name = "c";
-    d.name = "d";
 
     xorll_add(&list, &a);
     xorll_add(&list, &b);
@@ -17,18 +20,34 @@ int main(int argc, char *argv[]) {
     xorll_add(&list, &d);
     printf("Forward Once\n");
     xorll_printList(&list);
-    printf("Forward Twice\n");
+    printf("\n\n");
+    /* printf("Forward Twice\n"); */
+    /* xorll_printList(&list); */
+    /* printf("Get 0\n"); */
+    /* xorll_printNode(xorll_get(&list, 0)); */
+    /* printf("Get 1\n"); */
+    /* xorll_printNode(xorll_get(&list, 1)); */
+    /* printf("Get 2\n"); */
+    /* xorll_printNode(xorll_get(&list, 2)); */
+    /* printf("Get 3\n"); */
+    /* xorll_printNode(xorll_get(&list, 3)); */
+    /* printf("Get 4\n"); */
+    /* xorll_printNode(xorll_get(&list, 4)); */
+
+    printf("Insert at 1\n");
+    xorll_insert(&list, &bp, 1);
     xorll_printList(&list);
-    printf("Get 0\n");
-    xorll_printNode(xorll_get(&list, 0));
-    printf("Get 1\n");
-    xorll_printNode(xorll_get(&list, 1));
-    printf("Get 2\n");
-    xorll_printNode(xorll_get(&list, 2));
-    printf("Get 3\n");
-    xorll_printNode(xorll_get(&list, 3));
-    printf("Get 4\n");
-    xorll_printNode(xorll_get(&list, 4));
+    printf("\n\n");
+
+    printf("Insert at 4\n");
+    xorll_insert(&list, &dp, 4);
+    xorll_printList(&list);
+    printf("\n\n");
+
+    printf("Insert at head\n");
+    xorll_insert(&list, &h, 0);
+    xorll_printList(&list);
+    printf("\n\n");
 
     printf("Reverse it\n");
     list.head = &d;
