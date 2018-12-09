@@ -36,22 +36,21 @@ Examples:
 '''
 import sys;
 
-cnt = 0
 def perms(input_str, start, end):
     "count message permutations"
-    global cnt
-    cnt += 1
+    cnt = 1
     for i in range(start, end-1):
         num = input_str[i:i + 2]
         if int(num) <= 26:
-            perms(input_str, i + 2, end)
+            cnt += perms(input_str, i + 2, end)
+    return cnt
 
 
 S = sys.stdin.read().rstrip() or '111'
 print(f"Input: '{S}'")
 breakpoint()
-perms(S, 0, len(S))
-print(cnt)
+cnt = perms(S, 0, len(S))
+print(f"Decodes: {cnt}")
 
 
 # ------ Stack 1 -------                                        ------ Stack 1' -------
