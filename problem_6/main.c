@@ -3,7 +3,7 @@
 #include "XORLinkList.h"
 
 int main(int argc, char *argv[]) {
-    List list;
+    List list, rvList;
     Node a = {.name = "a", .both=0},
          b = {.name = "b", .both=0},
          c = {.name = "c", .both=0},
@@ -50,9 +50,43 @@ int main(int argc, char *argv[]) {
     printf("\n\n");
 
     printf("Reverse it\n");
-    list.head = &d;
-    list.tail = &a;
+    rvList.head = list.tail;
+    rvList.tail = list.head;
+    xorll_printList(&rvList);
+    printf("\n\n");
+
+    printf("Remove 1\n");
+    xorll_remove(&list, 1);
     xorll_printList(&list);
+    printf("\n\n");
+
+    printf("Reverse it\n");
+    rvList.head = list.tail;
+    rvList.tail = list.head;
+    xorll_printList(&rvList);
+    printf("\n\n");
+
+    printf("Remove head\n");
+    xorll_remove(&list, 0);
+    xorll_printList(&list);
+    printf("\n\n");
+
+    printf("Remove tail\n");
+    xorll_remove(&list, list.length-1);
+    xorll_printList(&list);
+    printf("\n\n");
+
+    printf("Reverse it\n");
+    rvList.head = list.tail;
+    rvList.tail = list.head;
+    xorll_printList(&rvList);
+    printf("\n\n");
+
+    printf("Remove rest\n");
+    for(int i=0; i<4; i++)
+        xorll_remove(&list, 0);
+    xorll_printList(&list);
+    printf("\n\n");
 
     return EXIT_SUCCESS;
 }

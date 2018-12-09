@@ -97,8 +97,72 @@ unsigned int xorll_insert(List * const list, Node * const node, unsigned int ind
     return 0;
 }
 
+/*
+    A <--> B <--> C <--> D
+    ^      ^             ^
+   head    |            tail
+           | 
+            -- B remove
+
+Remove at position 1 results in
+
+    A <--> C <--> D
+    ^             ^
+   head          tail
+ */
 unsigned int xorll_remove(List * const list, unsigned int index)
 {
+    Node *prev = 0L,
+        *cur = list->head,
+        *next = list->head;
+    unsigned int position = 0;
+    
+    if(index >= list->length) {
+        return list->length;
+    }
+   
+    if(index == 0){
+        next = (Node*)((unsigned long)prev ^ cur->both);
+        if(next != 0){
+            next->both = (unsigned long)list->head ^ next->both;
+        }
+        list->head = next;
+        return --list->length;
+    }
+    
+    if(index == list->length-1){
+        next = list->tail;
+        list->tail = (Node*)list->tail->both;
+        if(list->tail != 0){
+            list->tail->both = list->tail->both ^ (unsigned long)next;
+        }
+
+        return --list->length;
+    }
+
+    while(cur != 0L) {
+        if(position == index){
+            if(prev != 0L){
+                prev->both = (unsigned long)cur ^ prev->both ^ (unsigned long)next;
+            }
+           
+            if(next != 0L){
+                next->both = (unsigned long)cur ^ (unsigned long)next->both ^ (unsigned long)prev;
+            }
+
+            return --list->length;
+        }
+
+        if(cur->both != 0L){
+            next = (Node*)((unsigned long)prev ^ cur->both);
+            prev = cur;
+            cur = next;
+            next = (Node*)((unsigned long)prev ^ cur->both);
+            position++;
+        }else{
+            break;
+        }
+    }
     return 0;
 }
 
