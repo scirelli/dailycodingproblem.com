@@ -53,24 +53,44 @@ def travers(root):
 
 examples = [
     {
-        'description': '',
-        'tree': Node(0,
-            left=Node(1),
-            right=Node(0,
-                left=Node(1,
-                    left=Node(1),
-                    right=Node(1)
-                ),
-                right=Node(0)
-            )
-        )
-    }
+        'description': 'Example from email',             #       0
+        'tree': Node(0,                                  #      / \
+                     left=Node(1),                       #     1   0
+                     right=Node(0,                       #        / \
+                                left=Node(1,             #       1   0
+                                          left=Node(1),  #      / \
+                                          right=Node(1)  #     1   1
+                                          ),
+                                right=Node(0)
+                                )
+                     )
+    },
+    {
+        'description': 'Test 1',
+        'tree': Node(1,                                     #           1
+                     left=Node(1,                           #         /   \
+                               left=Node(1,                 #        1     1
+                                         left=Node(1),      #       / \   / \
+                                         right=Node(1)),    #      1   1 1   1
+                               right=Node(1)),              #     / \   / \
+                     right=Node(1,                          #    1   1 1   1
+                                left=Node(1,
+                                          left=Node(1),
+                                          right=Node(1)
+                                          ),
+                                right=Node(1)
+                                )
+                     )
+    },
 ]
+
+
 def main():
     """
     The main function
     """
-    print(travers(examples[0]['tree']))
+    for example in examples:
+        print(travers(example['tree']))
 
 
 if __name__ == '__main__':
