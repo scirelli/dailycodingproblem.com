@@ -34,7 +34,7 @@ Examples:
 [11,11,1],
 [11,1,11]
 '''
-import sys;
+import sys
 
 def perms(input_str, start, end):
     "count message permutations"
