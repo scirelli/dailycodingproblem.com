@@ -12,8 +12,8 @@ Given two linked lists in this format, return their sum in the same linked list 
 
 For example, given
 
-9 -> 9
-5 -> 2
-return 124 (99 + 25) as:
+9 -> 9  
+5 -> 2  
+return 124 (99 + 25) as:  
 
 4 -> 2 -> 1
