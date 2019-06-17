@@ -22,7 +22,7 @@ function readLine() {
 /////////////// ignore above this line ////////////////////
 const listFewestPalindromes = require('./listFewestPalindromes');
 
-// od -vAd -N40 -tu1 < /dev/urandom | cut -c11- | tr -s [:space:] " " | tee input2.txt
+// od -vAd -N400 -tc < /dev/urandom | cut -c11- | tr -s [:space:] " " | tr -cd '[:alpha:]' | tee input.txt
 function main() {
-    console.log(listFewestPalindromes(readLine()));
+    console.log(listFewestPalindromes(readLine()).join(', '));
 }
