@@ -27,20 +27,21 @@ if(!Array.prototype.equals) {
 
 (function test() {
     const tests = [
-        {given: 'a', expected: ['a']},
-        {given: 'ab', expected: ['a', 'b']},
-        {given: 'abc', expected: ['a', 'b', 'c']},
-        {given: 'aaa', expected: ['aaa']},
-        {given: 'aaaaaabcba', expected: ['aaaaa', 'abcba']}
+        {given: 'aabbaa',           expected: ['aabbaa']},
+        {given: 'a',                expected: ['a']},
+        {given: 'ab',               expected: ['a', 'b']},
+        {given: 'abc',              expected: ['a', 'b', 'c']},
+        {given: 'aaa',              expected: ['aaa']},
+        {given: 'aaaaaabcba',       expected: ['aaaaa', 'abcba']},
+        {given: 'racecarannakayak', expected: ['racecar', 'anna', 'kayak']}
     ];
 
-    tests.forEach((test, index)=> {
+    tests.forEach((test)=> {
         let result;
         try{
             result = listFewestPalindromes(test.given);
             assert(result.equals(test.expected));
-            console.log(result, test.expected);
-            console.log(`${index+1} Passed`);
+            console.log(`[${result}], [${test.expected}] --> Passed.`);
         }catch(e) {
             console.error(test.expected, ' did not equal ', result);
         }

@@ -22,29 +22,75 @@ class Node{
 }
 
 module.exports = (()=> {
-    const allResults = [];
-    let lowestPalindromeCount = Number.MAX_SAFE_INTEGER;
-
     return function listFewestPalindromes(str) {
-        let results = [];
+        const root = new Node();
 
-        if(!str || !str.length) {
-            return results;
-        }
+        _t(str, root);
 
-        for(let i=str.length, p=''; i>=0; i--) {
-            p = str.substring(0, i);
-            if(p.isPalindrome()) {
-                results.push(p);
-                results = results.concat(listFewestPalindromes(str.substring(i)));
+        return findShortestPath(root);
+
+        function _t(str, node) {
+            for(let i=1, l=str.length, ss, n; i<=l; i++) {
+                ss = str.substring(0, i);
+                if(ss.isPalindrome()) {
+                    n = new Node(ss);
+                    node.children.push(n);
+                    _t(str.substring(i), n);
+                }
             }
         }
 
-        allResults.push(results);
-        results = [];
+        function findShortestPath(node) {
+            const paths = [];
+            let shortestPath = Number.MAX_SAFE_INTEGER,
+                result = [];
 
-        return results;
+            _t(node);
+            result.shift();
+            return result.map(n=>n.palindrome);
+
+            function _t(node) {
+                paths.push(node);
+
+                if(!node.children.length) {
+                    if(paths.length < shortestPath) {
+                        shortestPath = paths.length;
+                        result = paths.slice(0);
+                    }
+                }
+
+                for(let i=0; i<node.children.length; i++) {
+                    _t(node.children[i]);
+                }
+                paths.pop();
+            }
+        }
     };
 })();
-//aaaaaabcba
-//a,a,a,a,a,a,b,c,b,a
+/*
+Example 1:
+    aabbaa
+                                         ('')
+                          ┎------┍---------┴---┒
+                          |      |          (aabbaa)
+                          |     (aa)--┒
+                          |      |   (bb)
+                          |     (b)   |
+                          |      |   (aa)
+                          |     (b)--┒
+                          |      |  (aa)
+                          |     (a)
+                          |      |
+                          |     (a)
+                         (a)------------------------------------┒
+                          |                                     (abba)
+                         (a)-----------┒--------------┒          |
+                          |            |              |          (a)
+                         (b)           (bb)--┒        (bbaa)
+                          |             |    |
+                         (b)---┒        (a) (aa)
+                          |    |        |
+                         (a)   (aa)     (a)
+                          |
+                         (a)
+ */
