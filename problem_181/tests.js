@@ -36,12 +36,12 @@ if(!Array.prototype.equals) {
         {given: 'racecarannakayak', expected: ['racecar', 'anna', 'kayak']}
     ];
 
-    tests.forEach((test)=> {
+    tests.forEach((test, index)=> {
         let result;
         try{
             result = listFewestPalindromes(test.given);
             assert(result.equals(test.expected));
-            console.log(`[${result}], [${test.expected}] --> Passed.`);
+            console.log(`Test ${index+1} '${test.given}' Result [${result}], Expected [${test.expected}] --> Passed.`);
         }catch(e) {
             console.error(test.expected, ' did not equal ', result);
         }
