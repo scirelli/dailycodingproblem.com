@@ -7,7 +7,7 @@ if(!String.prototype.reverse) {
 if(!String.prototype.isPalindrome) {
     String.prototype.isPalindrome = function() {
         if(!this.length) return false;
-        if(this.valueOf() === this.reverse()) {
+        if(this.valueOf().toLowerCase() === this.reverse().toLowerCase()) {
             return true;
         }
         return false;

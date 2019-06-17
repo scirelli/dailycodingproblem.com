@@ -27,13 +27,14 @@ if(!Array.prototype.equals) {
 
 (function test() {
     const tests = [
-        {given: 'aabbaa',           expected: ['aabbaa']},
-        {given: 'a',                expected: ['a']},
-        {given: 'ab',               expected: ['a', 'b']},
-        {given: 'abc',              expected: ['a', 'b', 'c']},
-        {given: 'aaa',              expected: ['aaa']},
-        {given: 'aaaaaabcba',       expected: ['aaaaa', 'abcba']},
-        {given: 'racecarannakayak', expected: ['racecar', 'anna', 'kayak']}
+        {given: 'aabbaa',              expected: ['aabbaa']},
+        {given: 'a',                   expected: ['a']},
+        {given: 'ab',                  expected: ['a', 'b']},
+        {given: 'abc',                 expected: ['a', 'b', 'c']},
+        {given: 'aaa',                 expected: ['aaa']},
+        {given: 'aaaaaabcba',          expected: ['aaaaa', 'abcba']},
+        {given: 'racecarannakayak',    expected: ['racecar', 'anna', 'kayak']},
+        {given: 'Kayakdcrapjanna1.3&', expected: [ 'Kayak', 'd', 'c', 'r', 'a', 'p', 'j', 'anna', '1', '.', '3', '&' ]}
     ];
 
     tests.forEach((test, index)=> {
