@@ -1,6 +1,7 @@
 Given the sequence of keys visited by a postorder traversal of a binary search tree, reconstruct the tree.
 
 For example, given the sequence 2, 4, 3, 8, 7, 5, you should construct the following tree:
+```
 
             5                    0
        /         \
@@ -15,3 +16,4 @@ For example, given the sequence 2, 4, 3, 8, 7, 5, you should construct the follo
    2     8     14    20
       5           17
             12
+```
