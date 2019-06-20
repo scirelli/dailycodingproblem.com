@@ -9,3 +9,9 @@ For example, given the sequence 2, 4, 3, 8, 7, 5, you should construct the follo
    2     4     1     8           2
   / \   / \   / \   / \
  3   3 3   3 3   3 3   3         d=3 * 2^3 = 24 chars
+
+
+ 1   5 7  11 13  17 19 23
+   2     8     14    20
+      5           17
+            12
