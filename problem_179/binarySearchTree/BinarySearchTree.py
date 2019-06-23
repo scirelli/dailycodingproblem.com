@@ -1,4 +1,4 @@
-from Node import Node
+from binarySearchTree.Node import Node
 
 
 class BinarySearchTree():

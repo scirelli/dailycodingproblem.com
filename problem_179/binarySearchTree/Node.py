@@ -6,4 +6,4 @@ class Node():
         self.duplicateCount = 0
 
     def __iter__(self):
-        return iter([self.right, self.left])
+        return filter(lambda x: x, [self.left, self.right])
