@@ -20,7 +20,7 @@ fatPeopleWeightLists = [
 
 
 @describe
-class TagValidator_is_Valid_TestCase(unittest.TestCase):
+class TagValidator_findSmallestNumberOfBoats_TestCase(unittest.TestCase):
     """
     Run some tests
     """

@@ -2,25 +2,27 @@
 """
 This problem was asked by Glassdoor.
 
-An imminent hurricane threatens the coastal town of Codeville. If at most two people can fit in a rescue boat, and the maximum weight limit for a given boat is k, determine how many boats will be needed to save everyone.
+An imminent hurricane threatens the coastal town of Codeville. If at most two people can fit in a rescue boat,
+and the maximum weight limit for a given boat is k, determine how many boats will be needed to save everyone.
 
-For example, given a population with weights [100, 200, 150, 80] and a boat limit of 200, the smallest number of boats required will be three.
+For example, given a population with weights [100, 200, 150, 80] and a boat limit of 200, the smallest number
+of boats required will be three.
 """
 ERASED = 0
 
 
 def findSmallestNumberOfBoats(fatPeopleList, weightLimit):
-    numberOfPeople = len(fatPeopleList)
+    numberOfPassengersToSave = len(fatPeopleList)
     numberOfBoatsNeeded = 0
     fatPeopleList = fatPeopleList.copy()
     fatPeopleList.sort(reverse=True)
 
-    for j in range(numberOfPeople):  # pylint: disable=consider-using-enumerate
+    for j in range(numberOfPassengersToSave):  # pylint: disable=consider-using-enumerate
         if fatPeopleList[j] == ERASED:
             continue
 
         currentWeightLimit = weightLimit
-        for i in range(j, numberOfPeople):  # pylint: disable=consider-using-enumerate
+        for i in range(j, numberOfPassengersToSave):  # pylint: disable=consider-using-enumerate
             personsWeight = fatPeopleList[i]
             fatPeopleList[i] = ERASED
 
@@ -34,6 +36,42 @@ def findSmallestNumberOfBoats(fatPeopleList, weightLimit):
             elif currentWeightLimit < 0:
                 currentWeightLimit = currentWeightLimit + personsWeight
                 fatPeopleList[i] = personsWeight
+
+        numberOfBoatsNeeded = numberOfBoatsNeeded + 1
+
+    return numberOfBoatsNeeded
+
+
+def findSmallestNumberOfBoats_with_size_limit(fatPeopleList, weightLimit, passengerLimit=2):
+    numberOfPassengersToSave = len(fatPeopleList)
+    numberOfBoatsNeeded = 0
+    fatPeopleList = fatPeopleList.copy()
+    fatPeopleList.sort(reverse=True)
+
+    for j in range(numberOfPassengersToSave):  # pylint: disable=consider-using-enumerate
+        if fatPeopleList[j] == ERASED:
+            continue
+
+        currentWeightLimit = weightLimit
+        openSeats = passengerLimit
+        for i in range(j, numberOfPassengersToSave):  # pylint: disable=consider-using-enumerate
+            personsWeight = fatPeopleList[i]
+            fatPeopleList[i] = ERASED
+
+            if personsWeight > weightLimit:
+                raise ValueError('Person is to fat for a boat.')
+
+            currentWeightLimit = currentWeightLimit - personsWeight
+            openSeats = openSeats - 1
+            if openSeats < 0:
+                fatPeopleList[i] = personsWeight
+                break
+            elif currentWeightLimit == 0:
+                break
+            elif currentWeightLimit < 0:
+                currentWeightLimit = currentWeightLimit + personsWeight
+                fatPeopleList[i] = personsWeight
+                openSeats = openSeats + 1
 
         numberOfBoatsNeeded = numberOfBoatsNeeded + 1
 
