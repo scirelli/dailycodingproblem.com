@@ -1,4 +1,15 @@
 #!/usr/bin/env python3
+"""
+Given a binary search tree, find the floor and ceiling of a given integer.
+
+The floor is the highest element in the tree less than or equal to an integer.
+
+The ceiling is the lowest element in the tree greater than or equal to an integer.
+
+If either value does not exist, return None.
+"""
+from random import shuffle
+
 from binarySearchTree.BinarySearchTree import BinarySearchTree
 
 
@@ -31,7 +42,6 @@ def floor(treeRoot, n):
     Breath first search. node <= n
     """
     queue = [treeRoot]
-
     while queue:
         node = queue.pop(0)
 
@@ -56,13 +66,26 @@ def runTest(testFuncName, test):
         print(testFuncName, 'FAIL: ', result, '!=', test['expected'])
 
 
+def listShuffle(array):
+    array = array[:]
+    shuffle(array)
+    return array
+
+
 def run_tests():
+    numbers = list(range(100))
     tests = {
         'floor': [
-            {'array': [2, 1, 3], 'num': 2.3, 'expected': 2}
+            {'array': [2, 1, 3], 'num': 2.3, 'expected': 2},
+            {'array': listShuffle(numbers), 'num': 5.3, 'expected': 5},
+            {'array': listShuffle(numbers), 'num': 5.9, 'expected': 5},
+            {'array': listShuffle(numbers), 'num': 50.5, 'expected': 50}
         ],
         'ceiling': [
-            {'array': [2, 1, 3], 'num': 2.3, 'expected': 3}
+            {'array': [2, 1, 3], 'num': 2.3, 'expected': 3},
+            {'array': listShuffle(numbers), 'num': 5.3, 'expected': 6},
+            {'array': listShuffle(numbers), 'num': 5.9, 'expected': 6},
+            {'array': listShuffle(numbers), 'num': 50.5, 'expected': 51}
         ]
     }
 
