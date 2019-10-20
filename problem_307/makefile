@@ -1,7 +1,7 @@
 #.EXPORT_ALL_VARIABLES
 SHELL:=/usr/bin/env bash
 
-PROJECT_NAME ?= ProjectNameHere
+PROJECT_NAME ?= problem_307
 DOWNLOAD_DIR=/tmp
 PYTHON3_VERSION=$(shell python3 --version | grep -o '3.7')
 VENV_DIR='.venv'
@@ -57,7 +57,7 @@ help:
 ######################
 .PHONY: install
 install: requirements.txt
-	@pip install -r requirements.txt
+	@pip3 install -r requirements.txt
 
 .PHONY: createVirtualEnvironment
 createVirtualEnvironment:
@@ -66,7 +66,7 @@ createVirtualEnvironment:
 
 .PHONY: installForLocalDev
 installForLocalDev: createVirtualEnvironment requirements.txt
-	@$(VENV_DIR)/bin/pip install --upgrade --requirement requirements.txt
+	@$(VENV_DIR)/bin/pip3 install --upgrade --requirement requirements.txt
 	@echo 'Local install complete'
 
 

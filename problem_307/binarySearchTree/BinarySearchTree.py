@@ -7,7 +7,7 @@ class BinarySearchTree():
 
   def __init__(self, rootNode=None):
     self.root = rootNode
-    
+
   def insert(self, value):
     try:
       iter(value)
@@ -21,20 +21,24 @@ class BinarySearchTree():
       if not self.root:
         self.root = BinarySearchTree.Node(itm)
         continue
-      return BinarySearchTree.insertAt(self.root, itm)
-  
+      lastInsert = BinarySearchTree.insertAt(self.root, itm)
+    return lastInsert
+
+  def get_root(self):
+      return self.root
+
   def __str__(self):
     return str(BinarySearchTree.in_order(self.root))
-  
+
   @staticmethod
   def insertAt(root, value):
     if not root:
       return root
-      
+
     if value > root.value:
-      return BinarySearchTree.insertLeft(root, value)
-    elif value <= root.value:
       return BinarySearchTree.insertRight(root, value)
+    elif value <= root.value:
+      return BinarySearchTree.insertLeft(root, value)
 
     raise ValueError('Wtf')
 
@@ -42,7 +46,7 @@ class BinarySearchTree():
   def insertRight(root, value):
     if root.right:
       return BinarySearchTree.insertAt(root.right, value)
-        
+
     root.right = BinarySearchTree.Node(value)
     return root.right
 
@@ -50,10 +54,10 @@ class BinarySearchTree():
   def insertLeft(root, value):
     if root.left:
       return BinarySearchTree.insertAt(root.left, value)
-        
+
     root.left = BinarySearchTree.Node(value)
     return root.left
-  
+
   @staticmethod
   def in_order(root, results=None):
     if not results:
@@ -62,9 +66,8 @@ class BinarySearchTree():
     if not root:
       return results
 
-    BinarySearchTree.in_order(root.left, results)
+    results = BinarySearchTree.in_order(root.left, results)
     results.append(root.value)
-    BinarySearchTree.in_order(root.right, results)
+    results = BinarySearchTree.in_order(root.right, results)
 
     return results
-
