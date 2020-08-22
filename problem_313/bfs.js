@@ -38,25 +38,6 @@ class Point{
     }
 }
 
-class Vector{
-    constructor(p1, p2) {
-        this.v = p1;
-
-        if(p2) {
-            this.v = p2.sub(p1);
-        }
-    }
-
-    magnitude() {
-        return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
-    }
-
-    unitVactor() {
-        let m = this.magnitude();
-        return new Vector(new Point(this.x/m, this.y/m, this.z/m));
-    }
-}
-
 function createField() {
     return (new Array(WIDTH*HEIGHT*DEPTH)).fill(OPEN);
 }
