@@ -91,25 +91,25 @@ function buildSet(intervals) {
         set = intervals.reduce((a, interval)=> {
             for(let i=interval[START]; i<=interval[END]; i++) {
                 if(a[i]) {
-                    a[i].push(interval);
+                    a[i]++;
                 }
-                else a[i] = [interval];
+                else a[i] = 1;
             }
             return a;
         }, {});
 
-    let maxNum = 0, l=0;
+    let maxNum = 0, r;
     for(let num in set) {
-        if(set[num].length > l) {
-            maxNum = num;
-            l = set[num].length;
+        if(set[num] > maxNum) {
+            maxNum = set[num];
+            r = num;
         }
     }
-    maxNum = parseInt(maxNum);
+    r = parseInt(r);
     leftOver = intervals.filter(i=> {
-        if(maxNum >= i[START] && maxNum <= i[END]) return false;
+        if(r >= i[START] && r <= i[END]) return false;
         return true;
     });
 
-    return {num: maxNum, leftOver: leftOver};
+    return {num: r, leftOver: leftOver};
 }
